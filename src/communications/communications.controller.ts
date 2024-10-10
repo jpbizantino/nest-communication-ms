@@ -1,15 +1,14 @@
 import { Body, Controller, Delete, Get, Param, Patch } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { CommunicationsService } from './communications.service';
-import { CreateCommunicationDto } from './dto/create-communication.dto';
-import { UpdateCommunicationDto } from './dto/update-communication.dto';
+import { CommunicationDto } from './dto/communication.dto';
 
 @Controller('communications')
 export class CommunicationsController {
   constructor(private readonly communicationsService: CommunicationsService) {}
 
   @MessagePattern({ cmd: 'create' })
-  create(@Payload() createCommunicationDto: CreateCommunicationDto) {
+  create(@Payload() createCommunicationDto: CommunicationDto) {
     return this.communicationsService.create(createCommunicationDto);
   }
 
@@ -27,7 +26,7 @@ export class CommunicationsController {
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() updateCommunicationDto: UpdateCommunicationDto,
+    @Body() updateCommunicationDto: CommunicationDto,
   ) {
     return this.communicationsService.update(+id, updateCommunicationDto);
   }

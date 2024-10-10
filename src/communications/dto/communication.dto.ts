@@ -1,26 +1,25 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty } from 'class-validator';
 import { Channel, Language, MessageModel } from '../enums';
+import { ContextDto } from './context.dto';
 
-export class CreateCommunicationDto {
+export class CommunicationDto {
   @ApiProperty({ enum: Channel })
   @IsEnum(Channel)
   @IsNotEmpty()
   channel: Channel;
 
   @ApiProperty({ enum: MessageModel })
-  //   @IsString()
-  //   @IsEnum(MessageModel)
+  @IsEnum(MessageModel)
   @IsNotEmpty()
   model: string;
 
   @ApiProperty({ enum: Language })
-  //   @IsString()
-  //   @IsEnum(Language)
+  @IsEnum(Language)
   @IsNotEmpty()
   language: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  context: string;
+  context: ContextDto;
 }
